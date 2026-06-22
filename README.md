@@ -33,7 +33,7 @@ K'_eq,thermo = exp(-dG'/(R T))   or a measured K'        (Section 3.2)
 | `strenda_metadata.csv` | STRENDA-aligned conditions and directional kinetic terms for the records summarized in the manuscript's STRENDA tables. Missing fields are retained as `not reported`. |
 | `score_curated.py` | Scores `curated_reactions.csv`, prints the summary table, and writes a scored CSV. **Standard library only.** |
 | `equilibrator_estimates.py` | Recomputes the eQuilibrator (component-contribution) thermodynamic comparators used for the secondary score `C_Haldane^est`. Requires `equilibrator-api` (optional). |
-| `make_real_figures.py` | Generates the manuscript's real-data Figure 3 (consistency scatter) and Figure 4 (score distribution) into `../figures/`, and prints the per-reaction scores and uncertainty analysis. Requires `matplotlib`. |
+| `make_real_figures.py` | Generates the manuscript's real-data Figure 3 (consistency scatter) and Figure 4 (score distribution) into `figures/`, and prints the per-reaction scores and uncertainty analysis. Requires `matplotlib`. |
 | `figures.py` | The data-free Figure 1 (cost shape) and schematic figure helpers. Requires `matplotlib`. |
 | `run_analysis.py` | Command-line driver for the four-constant input format: score a CSV, write an augmented CSV, print a summary, optionally make figures. |
 | `example_dataset.csv` | The synthetic worked example (records R1--R4 of Table 3). **Illustrative only; not experimental data.** |
@@ -83,7 +83,7 @@ python score_curated.py --output curated_reactions_scored.csv
 ```
 
 Regenerate the real-data Figures 3 and 4 (and print the per-reaction scores and
-uncertainty analysis) into `../figures/`:
+uncertainty analysis) into `figures/`:
 
 ```bash
 python make_real_figures.py

@@ -205,7 +205,7 @@ def make_distribution_figure(path: str) -> None:
 
 def main() -> None:
     print_table()
-    out_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "figures")
+    out_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "figures")
     os.makedirs(out_dir, exist_ok=True)
     make_consistency_figure(os.path.join(out_dir, "fig_consistency.pdf"))
     make_distribution_figure(os.path.join(out_dir, "fig_distribution.pdf"))

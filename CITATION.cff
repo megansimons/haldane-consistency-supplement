@@ -20,8 +20,8 @@ keywords:
   - thermodynamic consistency
   - reciprocal cost
   - reproducibility
-# After the repo is created and the Zenodo deposit is published, uncomment and fill:
-# repository-code: "https://github.com/megansimons/haldane-consistency-supplement"
+repository-code: "https://github.com/megansimons/haldane-consistency-supplement"
+# After the Zenodo deposit is published, uncomment and fill the archived-version DOI:
 # doi: "10.5281/zenodo.XXXXXXX"
 preferred-citation:
   type: article
