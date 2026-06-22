@@ -1,0 +1,38 @@
+cff-version: 1.2.0
+message: "If you use this software or the curated data, please cite the associated article (see preferred-citation) and, where appropriate, this archived software/data record."
+title: "A Reciprocal Haldane-Consistency Score for Thermodynamic Audits of Reversible Enzyme Kinetics: code and curated data"
+type: software
+version: "1.0"
+date-released: "2026-06-21"
+license: MIT
+authors:
+  - given-names: Megan
+    family-names: Simons
+    orcid: "https://orcid.org/0000-0001-9457-7019"
+    affiliation: "Recognition Physics Institute, Austin, TX, USA"
+  - given-names: Jonathan
+    family-names: Washburn
+    orcid: "https://orcid.org/0009-0001-8868-7497"
+    affiliation: "Recognition Physics Institute, Austin, TX, USA"
+keywords:
+  - enzyme kinetics
+  - Haldane relation
+  - thermodynamic consistency
+  - reciprocal cost
+  - reproducibility
+# After the repo is created and the Zenodo deposit is published, uncomment and fill:
+# repository-code: "https://github.com/megansimons/haldane-consistency-supplement"
+# doi: "10.5281/zenodo.XXXXXXX"
+preferred-citation:
+  type: article
+  title: "A Reciprocal Haldane-Consistency Score for Thermodynamic Audits of Reversible Enzyme Kinetics"
+  year: 2026
+  authors:
+    - given-names: Megan
+      family-names: Simons
+      orcid: "https://orcid.org/0000-0001-9457-7019"
+    - given-names: Jonathan
+      family-names: Washburn
+      orcid: "https://orcid.org/0009-0001-8868-7497"
+  # journal: "<journal name once accepted>"
+  # doi: "<article DOI once assigned>"

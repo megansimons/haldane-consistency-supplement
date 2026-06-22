@@ -1,0 +1,9 @@
+# Output of equilibrator_estimates.py (equilibrator-api 0.7.0, component-contribution 0.7.0).
+# Generated 2026-06-09T07:07:01Z on this machine.
+# These are model-based estimates; regenerate with: python equilibrator_estimates.py
+
+eQuilibrator conditions: pH 7.0, I = 0.25M, pMg 3.0, T = 298.15 K
+
+PGI  G6P = F6P                           dG'^o =  +2.66 +/- 0.38 kJ/mol   K'_eQ =   0.342
+TPI  GAP = DHAP                          dG'^o =  -5.58 +/- 0.55 kJ/mol   K'_eQ =   9.479
+Fumarase  fumarate + H2O = (S)-malate    dG'^o =  -3.43 +/- 0.28 kJ/mol   K'_eQ =   3.989

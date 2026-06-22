@@ -1,0 +1,5 @@
+record_id,ec_number,enzyme_name,organism,reaction_rhea,kinetic_source,thermo_source,pH,temperature_K,kcat_f,km_s,kcat_r,km_p,keq_thermo,dg_thermo_kJ_per_mol,sigma_ln_kcat_f,sigma_ln_km_s,sigma_ln_kcat_r,sigma_ln_km_p,sigma_ln_keq_thermo
+R1,,Synthetic enzyme A,synthetic,,synthetic (illustrative),synthetic (illustrative),7.0,298.15,200,0.50,100,0.40,1.50,,0.30,0.30,0.30,0.30,0.20
+R2,,Synthetic enzyme B,synthetic,,synthetic (illustrative),synthetic (illustrative),7.0,298.15,150,0.20,50,0.30,1.50,,,,,,
+R3,,Synthetic enzyme C,synthetic,,synthetic (illustrative),synthetic (illustrative),7.0,298.15,300,0.10,30,0.25,3.00,,0.25,0.25,0.25,0.25,0.20
+R4,,Synthetic enzyme D,synthetic,,synthetic (illustrative),synthetic (illustrative),7.0,298.15,500,0.05,20,0.10,2.00,,,,,,

@@ -1,0 +1,14 @@
+# The core scoring library (haldane_consistency.py), the command-line driver
+# (run_analysis.py), and the tests (test_haldane_consistency.py) use ONLY the
+# Python standard library and require Python 3.8 or newer -- no installation
+# needed.
+#
+# matplotlib is required only for figure generation (figures.py,
+# make_real_figures.py, and the --figures option of run_analysis.py).
+matplotlib>=3.3
+
+# equilibrator-api is OPTIONAL and is needed only by equilibrator_estimates.py,
+# which recomputes the eQuilibrator (component-contribution) thermodynamic
+# comparators. The first run downloads the equilibrator compound cache
+# (~1.3 GB). Install with:  pip install equilibrator-api
+# equilibrator-api>=0.6
