@@ -4,6 +4,11 @@ Reference code and supplemental data for the manuscript **"A Reciprocal
 Haldane-Consistency Score for Thermodynamic Audits of Reversible Enzyme
 Kinetics."**
 
+Archived release: DOI
+[10.5281/zenodo.20790111](https://doi.org/10.5281/zenodo.20790111).
+The live repository is
+[megansimons/haldane-consistency-supplement](https://github.com/megansimons/haldane-consistency-supplement).
+
 For a reversible uni--uni reaction `S <-> P`, the forward and reverse kinetic
 constants fix an apparent equilibrium constant through the Haldane relation,
 which should agree with the value implied by biochemical thermodynamics. The
@@ -138,8 +143,8 @@ From the symmetric fold error `f = max(x, 1/x)` (Table 2):
 | Class | Condition | `C_Haldane` |
 |-------|-----------|-------------|
 | consistent | `f <= 2` | `<= 0.25` |
-| mildly inconsistent | `2 < f <= 5` | `0.25`--`1.60` |
-| strongly inconsistent | `5 < f <= 10` | `1.60`--`4.05` |
+| mildly inconsistent | `2 < f <= 5` | `0.25 < C_Haldane <= 1.60` |
+| strongly inconsistent | `5 < f <= 10` | `1.60 < C_Haldane <= 4.05` |
 | severely inconsistent | `f > 10` | `> 4.05` |
 
 ## Library usage
