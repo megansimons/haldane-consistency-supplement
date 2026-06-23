@@ -43,7 +43,7 @@ K'_eq,thermo = exp(-dG'/(R T))   or a measured K'        (Section 3.2)
 | `run_analysis.py` | Command-line driver for the four-constant input format: score a CSV, write an augmented CSV, print a summary, optionally make figures. |
 | `example_dataset.csv` | The synthetic worked example (records R1--R4 of Table 3). **Illustrative only; not experimental data.** |
 | `test_haldane_consistency.py` | Tests for the mathematical properties and the Table 3 values. |
-| `lean_formalization_details.md` | Pinned repository, module, and declaration names for the independent Lean 4 formalization cited by the manuscript. |
+| `lean_formalization_details.md` | Pinned repository, module, and declaration names for an optional, independent Lean 4 formalization of the d'Alembert/cosh classification. The manuscript proof is self-contained (Appendix A, Lemma 3); this material is **not required by or cited in the manuscript** and is provided only as a supplementary independent check. |
 | `requirements.txt` | `matplotlib` (figures); `equilibrator-api` (optional, for `equilibrator_estimates.py`). |
 
 ## Requirements

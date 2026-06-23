@@ -21,8 +21,7 @@ keywords:
   - reciprocal cost
   - reproducibility
 repository-code: "https://github.com/megansimons/haldane-consistency-supplement"
-# After the Zenodo deposit is published, uncomment and fill the archived-version DOI:
-# doi: "10.5281/zenodo.XXXXXXX"
+doi: "10.5281/zenodo.20790111"
 preferred-citation:
   type: article
   title: "A Reciprocal Haldane-Consistency Score for Thermodynamic Audits of Reversible Enzyme Kinetics"

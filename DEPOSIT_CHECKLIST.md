@@ -36,4 +36,4 @@ delete the `% TODO(before submission)` comment:
 - [ ] `10.5281/zenodo.XXXXXXX`  ->  the minted Zenodo DOI.
 - [ ] Git tag `v1.0`            ->  the actual tag, if different.
 - [ ] commit `XXXXXXX`          ->  the short commit hash from step 2.
-- [ ] Confirm the Lean pin in `lean_formalization_details.md` (commit `edcd65c`) is still correct.
+- [ ] No manuscript Lean pin to confirm: the manuscript proof is self-contained (Appendix A, Lemma 3) and does not cite or require the optional Lean material in `lean_formalization_details.md`.
