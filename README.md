@@ -4,8 +4,9 @@ Reference code and supplemental data for the manuscript **"A Reciprocal
 Haldane-Consistency Score for Thermodynamic Audits of Reversible Enzyme
 Kinetics."**
 
-Archived release: DOI
-[10.5281/zenodo.20790111](https://doi.org/10.5281/zenodo.20790111).
+Archived release: concept DOI
+[10.5281/zenodo.20790110](https://doi.org/10.5281/zenodo.20790110) (resolves to the latest
+archived version).
 The live repository is
 [megansimons/haldane-consistency-supplement](https://github.com/megansimons/haldane-consistency-supplement).
 

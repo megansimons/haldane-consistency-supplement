@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "If you use this software or the curated data, please cite the associated article (see preferred-citation) and, where appropriate, this archived software/data record."
 title: "A Reciprocal Haldane-Consistency Score for Thermodynamic Audits of Reversible Enzyme Kinetics: code and curated data"
 type: software
-version: "1.0"
-date-released: "2026-06-21"
+version: "1.2"
+date-released: "2026-06-23"
 license: MIT
 authors:
   - given-names: Megan
@@ -21,7 +21,7 @@ keywords:
   - reciprocal cost
   - reproducibility
 repository-code: "https://github.com/megansimons/haldane-consistency-supplement"
-doi: "10.5281/zenodo.20790111"
+doi: "10.5281/zenodo.20790110"
 preferred-citation:
   type: article
   title: "A Reciprocal Haldane-Consistency Score for Thermodynamic Audits of Reversible Enzyme Kinetics"
