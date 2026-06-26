@@ -8,11 +8,11 @@ together with full provenance) and reports, for each record,
     x   = keq_kin / keq_thermo
     C   = J(x) = 1/2 (x + 1/x) - 1          (reciprocal recognition cost)
     fold= max(x, 1/x)
-    class                                    (consistency class, Table 2)
+    class                                    (consistency class)
 
-These reproduce the phosphoglucose isomerase rows (manuscript Table 5),
-the clean scored set (Table 7: TPI and the two racemases), and the fumarase
-kinetic Haldane scores (Table 8). Standard library only.
+These reproduce the phosphoglucose isomerase rows, the clean scored set (TPI
+and the racemase controls), and the fumarase kinetic Haldane scores reported in
+the manuscript. Standard library only.
 
 Usage
 -----

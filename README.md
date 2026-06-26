@@ -37,13 +37,16 @@ K'_eq,thermo = exp(-dG'/(R T))   or a measured K'        (Section 3.2)
 | `curated_reactions.csv` | **The curated real-reaction dataset.** One row per kinetic--thermodynamic comparison, with the kinetic estimate `keq_kin`, the thermodynamic comparator `keq_thermo`, conditions, and primary-literature provenance. |
 | `curated_reactions_scored.csv` | Scored output from `score_curated.py`, including `x`, `C_haldane`, fold error, and consistency class. |
 | `strenda_metadata.csv` | STRENDA-aligned conditions and directional kinetic terms for the records summarized in the manuscript's STRENDA tables. Missing fields are retained as `not reported`. |
+| `Supplementary_Table_S1_reaction_normalization.csv` | Explicit Supplementary Table S1 export: normalized reaction identities, reaction orientation, thermodynamic anchor/comparator, and Rhea/ChEBI audit status. |
+| `Supplementary_Table_S2_kinetic_metadata.csv` | Explicit Supplementary Table S2 export: STRENDA-style kinetic metadata for directly documented records. |
+| `Supplementary_Table_S3_provenance_limited_controls.csv` | Explicit Supplementary Table S3 export: provenance-limited racemase controls and their interpretation limits. |
 | `score_curated.py` | Scores `curated_reactions.csv`, prints the summary table, and writes a scored CSV. **Standard library only.** |
 | `equilibrator_estimates.py` | Recomputes the eQuilibrator (component-contribution) thermodynamic comparators used for the secondary score `C_Haldane^est`. Requires `equilibrator-api` (optional). |
 | `make_real_figures.py` | Generates the manuscript's real-data Figure 3 (consistency scatter) and Figure 4 (score distribution) into `figures/`, and prints the per-reaction scores and uncertainty analysis. Requires `matplotlib`. |
 | `figures.py` | The data-free Figure 1 (cost shape) and schematic figure helpers. Requires `matplotlib`. |
 | `run_analysis.py` | Command-line driver for the four-constant input format: score a CSV, write an augmented CSV, print a summary, optionally make figures. |
-| `example_dataset.csv` | The synthetic worked example (records R1--R4 of Table 3). **Illustrative only; not experimental data.** |
-| `test_haldane_consistency.py` | Tests for the mathematical properties and the Table 3 values. |
+| `example_dataset.csv` | The synthetic worked example (records R1--R5 of the manuscript's worked illustrative example). **Illustrative only; not experimental data.** |
+| `test_haldane_consistency.py` | Tests for the mathematical properties and the worked illustrative example values. |
 | `lean_formalization_details.md` | Pinned repository, module, and declaration names for an optional, independent Lean 4 formalization of the d'Alembert/cosh classification. The manuscript proof is self-contained (Appendix A, Lemma 3); this material is **not required by or cited in the manuscript** and is provided only as a supplementary independent check. |
 | `requirements.txt` | `matplotlib` (figures); `equilibrator-api` (optional, for `equilibrator_estimates.py`). |
 
@@ -139,7 +142,7 @@ baseline measures `abs_log_error`, `squared_log_error`, `abs_ddg_kJ_per_mol`.
 
 ## Consistency classes
 
-From the symmetric fold error `f = max(x, 1/x)` (Table 2):
+From the symmetric fold error `f = max(x, 1/x)` (the manuscript classification table):
 
 | Class | Condition | `C_Haldane` |
 |-------|-----------|-------------|

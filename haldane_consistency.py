@@ -61,7 +61,7 @@ __all__ = [
 R_GAS: float = 8.314462618   # molar gas constant, J / (mol K)
 T_DEFAULT: float = 298.15    # default temperature, K (25 degrees C)
 
-# Fold-error cut-offs for the consistency classes (Table 2). A record with
+# Fold-error cut-offs for the consistency classes. A record with
 # symmetric fold error f = max(x, 1/x) is "consistent" for f <= 2, "mildly
 # inconsistent" for 2 < f <= 5, "strongly inconsistent" for 5 < f <= 10, and
 # "severely inconsistent" otherwise.
@@ -167,7 +167,7 @@ def fold_error(x: float) -> float:
 
 
 def classify(x: float) -> str:
-    """Assign the consistency class of Table 2 from the ratio ``x``."""
+    """Assign the consistency class from the ratio ``x``."""
     f = fold_error(x)
     if f <= CLASS_BOUNDS[0]:
         return CLASS_LABELS[0]
@@ -228,7 +228,7 @@ def baseline_scores(x: float, temperature_K: float = T_DEFAULT) -> dict:
     Includes the absolute fold error ``|x - 1|``, the log error ``|ln x|``,
     the squared log error ``(ln x)^2``, the free-energy error
     ``|ddG| = R T |ln x|`` (in kJ/mol), its square, and the reciprocal cost
-    itself, for side-by-side comparison (Table 4).
+    itself, for side-by-side comparison (manuscript scoring-function comparison table).
     """
     delta = math.log(x)
     rt = R_GAS * temperature_K

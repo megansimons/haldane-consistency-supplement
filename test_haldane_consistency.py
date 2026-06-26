@@ -1,7 +1,7 @@
 """Tests for the Haldane-consistency reference implementation.
 
 Verifies the mathematical properties claimed in the manuscript and reproduces
-the values in the worked illustrative example (Table 3). Runs under pytest, or
+the values in the worked illustrative example. Runs under pytest, or
 standalone via ``python test_haldane_consistency.py``.
 """
 
@@ -32,7 +32,7 @@ def test_reciprocal_symmetry():
 
 
 def test_tabulated_values():
-    # Property 5 / Table 1 of the manuscript.
+    # Property 5 / the manuscript's fold-error interpretation of J.
     assert _close(hc.reciprocal_cost(2.0), 0.25)
     assert _close(hc.reciprocal_cost(3.0), 2.0 / 3.0, tol=1e-3)
     assert _close(hc.reciprocal_cost(5.0), 1.6)
@@ -69,7 +69,7 @@ def test_negative_ratio_raises():
 # --- Haldane relation and thermodynamics (Sections 3.1, 3.2) --------------
 
 def test_haldane_relation():
-    # R1 of the illustrative example: (200 * 0.4) / (100 * 0.5) = 1.6
+    # R2 of the illustrative example: (200 * 0.4) / (100 * 0.5) = 1.6
     assert _close(hc.keq_kinetic(200, 0.5, 100, 0.4), 1.6)
 
 
@@ -84,7 +84,7 @@ def test_dg_keq_roundtrip():
         assert _close(hc.keq_thermo_from_dg(dg, hc.T_DEFAULT), keq, tol=1e-6 * keq + 1e-9)
 
 
-# --- classification (Table 2) ---------------------------------------------
+# --- classification (consistency classes) --------------------------------
 
 def test_classification_boundaries():
     assert hc.classify(1.0) == "consistent"
@@ -131,31 +131,34 @@ def test_baselines():
     assert _close(b["haldane_score"], 4.05)
 
 
-# --- worked illustrative example (Table 3) --------------------------------
+# --- worked illustrative example ------------------------------------------
 
 EXPECTED = {
     # record_id: (keq_kin, x, C_haldane, class)
-    "R1": (1.60, 1.0667, 0.00208, "consistent"),
-    "R2": (4.50, 3.0000, 0.66667, "mildly inconsistent"),
-    "R3": (25.0, 8.3333, 3.22667, "strongly inconsistent"),
-    "R4": (50.0, 25.000, 11.5200, "severely inconsistent"),
+    "R1": (1.00, 1.0000, 0.00000, "consistent"),
+    "R2": (1.60, 1.0667, 0.00208, "consistent"),
+    "R3": (4.50, 3.0000, 0.66667, "mildly inconsistent"),
+    "R4": (25.0, 8.3333, 3.22667, "strongly inconsistent"),
+    "R5": (50.0, 25.000, 11.5200, "severely inconsistent"),
 }
 
 
 def _example_records():
     return [
-        hc.EnzymeRecord(record_id="R1", kcat_f=200, km_s=0.50, kcat_r=100, km_p=0.40,
+        hc.EnzymeRecord(record_id="R1", kcat_f=100, km_s=0.50, kcat_r=80, km_p=0.40,
+                        keq_thermo=1.00, temperature_K=298.15),
+        hc.EnzymeRecord(record_id="R2", kcat_f=200, km_s=0.50, kcat_r=100, km_p=0.40,
                         keq_thermo=1.50, temperature_K=298.15),
-        hc.EnzymeRecord(record_id="R2", kcat_f=150, km_s=0.20, kcat_r=50, km_p=0.30,
+        hc.EnzymeRecord(record_id="R3", kcat_f=150, km_s=0.20, kcat_r=50, km_p=0.30,
                         keq_thermo=1.50, temperature_K=298.15),
-        hc.EnzymeRecord(record_id="R3", kcat_f=300, km_s=0.10, kcat_r=30, km_p=0.25,
+        hc.EnzymeRecord(record_id="R4", kcat_f=300, km_s=0.10, kcat_r=30, km_p=0.25,
                         keq_thermo=3.00, temperature_K=298.15),
-        hc.EnzymeRecord(record_id="R4", kcat_f=500, km_s=0.05, kcat_r=20, km_p=0.10,
+        hc.EnzymeRecord(record_id="R5", kcat_f=500, km_s=0.05, kcat_r=20, km_p=0.10,
                         keq_thermo=2.00, temperature_K=298.15),
     ]
 
 
-def test_illustrative_example_matches_table3():
+def test_illustrative_example_values():
     for rec in _example_records():
         res = hc.score_record(rec)
         keq, x, cost, cls = EXPECTED[rec.record_id]
