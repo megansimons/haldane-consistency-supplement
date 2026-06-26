@@ -2,8 +2,8 @@
 
 Reference implementation of the scoring described in
 
-    "A Reciprocal Recognition-Cost Metric for Thermodynamic Consistency
-     in Reversible Enzyme Kinetics."
+    "A Reciprocal Reporting Scale for Haldane Consistency in Reversible
+     Enzyme Kinetics: A Curated Proof of Concept."
 
 The central quantity is the reciprocal recognition cost
 
@@ -45,7 +45,6 @@ __all__ = [
     "sigma_ln_keq_kin",
     "sigma_delta",
     "standardized_residual",
-    "standardized_score",
     "baseline_scores",
     "EnzymeRecord",
     "ScoreResult",
@@ -61,16 +60,14 @@ __all__ = [
 R_GAS: float = 8.314462618   # molar gas constant, J / (mol K)
 T_DEFAULT: float = 298.15    # default temperature, K (25 degrees C)
 
-# Fold-error cut-offs for the consistency classes. A record with
-# symmetric fold error f = max(x, 1/x) is "consistent" for f <= 2, "mildly
-# inconsistent" for 2 < f <= 5, "strongly inconsistent" for 5 < f <= 10, and
-# "severely inconsistent" otherwise.
+# Fixed fold-error reporting bands. These are descriptive labels, not
+# validated consistency classes or decision thresholds.
 CLASS_BOUNDS = (2.0, 5.0, 10.0)
 CLASS_LABELS = (
-    "consistent",
-    "mildly inconsistent",
-    "strongly inconsistent",
-    "severely inconsistent",
+    "within twofold",
+    "2-5-fold",
+    "5-10-fold",
+    ">10-fold",
 )
 
 
@@ -167,7 +164,7 @@ def fold_error(x: float) -> float:
 
 
 def classify(x: float) -> str:
-    """Assign the consistency class from the ratio ``x``."""
+    """Assign the fixed fold-error reporting band from the ratio ``x``."""
     f = fold_error(x)
     if f <= CLASS_BOUNDS[0]:
         return CLASS_LABELS[0]
@@ -211,11 +208,6 @@ def standardized_residual(delta: float, s_delta: float) -> float:
     if s_delta <= 0:
         raise ValueError(f"sigma_delta must be positive, got {s_delta!r}")
     return delta / s_delta
-
-
-def standardized_score(z: float) -> float:
-    """Standardized score ``C_std = cosh(z) - 1`` (Section 3.5)."""
-    return math.cosh(z) - 1.0
 
 
 # ---------------------------------------------------------------------------
@@ -295,7 +287,6 @@ class ScoreResult:
     C_haldane: float
     consistency_class: str
     z: Optional[float] = None
-    C_std: Optional[float] = None
     # baseline measures
     abs_log_error: Optional[float] = None
     squared_log_error: Optional[float] = None
@@ -331,8 +322,8 @@ def score_record(rec: EnzymeRecord) -> ScoreResult:
     cost = reciprocal_cost_from_log(delta)
     cls = classify(x)
 
-    # Optional standardized score, only when all uncertainties are present.
-    z = c_std = None
+    # Optional standardized residual, only when all uncertainties are present.
+    z = None
     kin_sigmas = (
         rec.sigma_ln_kcat_f,
         rec.sigma_ln_km_p,
@@ -344,7 +335,6 @@ def score_record(rec: EnzymeRecord) -> ScoreResult:
         s_delta = sigma_delta(s_kin, rec.sigma_ln_keq_thermo)
         if s_delta > 0:
             z = standardized_residual(delta, s_delta)
-            c_std = standardized_score(z)
 
     rt_kJ = R_GAS * temperature / 1000.0
     return ScoreResult(
@@ -356,7 +346,6 @@ def score_record(rec: EnzymeRecord) -> ScoreResult:
         C_haldane=cost,
         consistency_class=cls,
         z=z,
-        C_std=c_std,
         abs_log_error=abs(delta),
         squared_log_error=delta ** 2,
         abs_ddg_kJ_per_mol=rt_kJ * abs(delta),
@@ -450,7 +439,6 @@ _OUTPUT_COLUMNS = [
     "ratio_x",
     "ln_ratio",
     "C_haldane",
-    "C_std",
     "z",
     "consistency_class",
     "abs_log_error",
@@ -500,7 +488,6 @@ def write_results(
                     _fmt(res.ratio_x),
                     _fmt(res.ln_ratio),
                     _fmt(res.C_haldane),
-                    _fmt(res.C_std),
                     _fmt(res.z),
                     res.consistency_class,
                     _fmt(res.abs_log_error),

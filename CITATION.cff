@@ -1,9 +1,9 @@
 cff-version: 1.2.0
 message: "If you use this software or the curated data, please cite the associated article (see preferred-citation) and, where appropriate, this archived software/data record."
-title: "A Reciprocal Reporting Scale for Haldane Consistency in Reversible Enzyme Kinetics: A Curated Proof of Concept --- code and curated data"
+title: "A Reciprocal Reporting Scale for Haldane Consistency in Reversible Enzyme Kinetics: A Curated Proof of Concept -- code and curated data"
 type: software
-version: "1.2"
-date-released: "2026-06-23"
+version: "1.3"
+date-released: "2026-06-26"
 license: MIT
 authors:
   - given-names: Megan

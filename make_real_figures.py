@@ -2,7 +2,7 @@
 
 All numbers are taken from primary literature (see manuscript references):
   - PGI kinetics: Stodeman & Schwarz 2004, Anal. Biochem. 329(2), 307-315.
-  - PGI thermo:  Goldberg & Tewari 1995 (JPCRD Part 5); TECRDB 60KAH/LOW, 68DYS/NOL, 88TEW/STE.
+  - PGI thermo:  Goldberg & Tewari 1995 (JPCRD Part 5); TECRDB 60KAH/LOW, 68DYS/NOL.
   - TPI kinetics: Putman, Coulson, Farley, Riddleston & Knowles 1972, Biochem. J. 129, 301-310.
   - TPI thermo:   Veech, Raijman, Dalziel & Krebs 1969, Biochem. J. 115, 837-842 (K=22.0 +/- 0.25).
   - Mandelate racemase: St Maurice & Bearne 2002, Biochemistry 41, 4048-4058.
@@ -35,19 +35,18 @@ def fold(x: float) -> float:
 def classify(x: float) -> str:
     f = fold(x)
     if f <= 2:
-        return "consistent"
+        return "within twofold"
     if f <= 5:
-        return "mildly inconsistent"
+        return "2-5-fold"
     if f <= 10:
-        return "strongly inconsistent"
-    return "severely inconsistent"
+        return "5-10-fold"
+    return ">10-fold"
 
 
 # (label, K_kin, K_thermo, marker-group)
 SCORED = [
     ("PGI 60KAH/LOW", 0.307, 0.260, "PGI"),
     ("PGI 68DYS/NOL", 0.395, 0.290, "PGI"),
-    ("PGI 88TEW/STE", 0.395, 0.293, "PGI"),
     ("TPI", 20.4, 22.0, "TPI"),
     ("Mandelate racemase", 1.14, 1.000, "racemase"),
     ("Proline racemase", 1.000, 1.000, "racemase"),
@@ -73,13 +72,13 @@ FUMARASE = [
 
 
 def print_table() -> None:
-    print(f"{'reaction':22s} {'Kkin':>7s} {'Kthermo':>8s} {'x':>7s} {'fold':>6s} {'C':>8s}  class")
+    print(f"{'reaction':22s} {'Kkin':>7s} {'Kthermo':>8s} {'x':>7s} {'fold':>6s} {'C':>8s}  fold band")
     for label, kk, kt, _ in SCORED:
         x = kk / kt
         print(f"{label:22s} {kk:7.3f} {kt:8.3f} {x:7.3f} {fold(x):6.3f} {J(x):8.4f}  {classify(x)}")
 
     # thermodynamic-side uncertainty from inter-source spread
-    pgi_thermo = [0.260, 0.290, 0.293]
+    pgi_thermo = [0.260, 0.290]
     fum_thermo = [3.98, 4.25, 4.28, 4.43]
     s_pgi = statistics.stdev([math.log(v) for v in pgi_thermo])
     s_fum = statistics.stdev([math.log(v) for v in fum_thermo])
@@ -93,7 +92,7 @@ def print_table() -> None:
     s_delta = math.hypot(s_kin, s_pgi)
     z = lnx / s_delta
     print(f"\nPGI primary: ln x={lnx:.4f}, sigma_kin={s_kin:.4f}, sigma_thermo={s_pgi:.4f},"
-          f" sigma_delta={s_delta:.4f}, z={z:.3f}, C_std={math.cosh(z)-1:.4f}")
+          f" sigma_delta={s_delta:.4f}, z={z:.3f}")
 
     # fumarase kinetic Haldane scores vs thermodynamic K' = 4.2 (Genda 2006)
     print("\nFumarase kinetic Haldane vs thermodynamic K'=4.2 (Genda 2006):")
@@ -113,7 +112,7 @@ def make_consistency_figure(path: str) -> None:
         ax.plot([lo, hi], [lo / fac, hi / fac], ls="--", color=c, lw=0.9, zorder=1)
 
     groups = {
-        "PGI": ("#1f77b4", "o", "PGI (3 comparators)"),
+        "PGI": ("#1f77b4", "o", "PGI (2 source-traced comparators)"),
         "TPI": ("#2ca02c", "s", "TPI"),
         "racemase": ("#d62728", "^", "original racemases ($K'_{thermo}=1$)"),
         "racemase-added": ("#8c564b", "P", "added amino-acid racemases"),
@@ -148,7 +147,6 @@ def make_distribution_figure(path: str) -> None:
     short = {
         "PGI 60KAH/LOW": "PGI-1",
         "PGI 68DYS/NOL": "PGI-2",
-        "PGI 88TEW/STE": "PGI-3",
         "TPI": "TPI",
         "Mandelate racemase": "MR",
         "Proline racemase": "PR",
@@ -176,7 +174,7 @@ def make_distribution_figure(path: str) -> None:
     ax.scatter(xs, vals, s=72, color=colors, edgecolor="black", linewidth=0.5, zorder=3)
     ax.set_yscale("log")
     ax.axhline(0.25, ls="--", color="0.4", lw=0.9)
-    ax.text(len(items) - 0.5, 0.28, "consistent / mild boundary (0.25)", ha="right",
+    ax.text(len(items) - 0.5, 0.28, "twofold reporting boundary (0.25)", ha="right",
             va="bottom", fontsize=8, color="0.3")
     for i, (_, cost, _, label) in enumerate(items):
         if cost == 0.0:

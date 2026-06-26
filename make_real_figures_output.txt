@@ -1,0 +1,26 @@
+reaction                  Kkin  Kthermo       x   fold        C  fold band
+PGI 60KAH/LOW            0.307    0.260   1.181  1.181   0.0138  within twofold
+PGI 68DYS/NOL            0.395    0.290   1.362  1.362   0.0481  within twofold
+TPI                     20.400   22.000   0.927  1.078   0.0029  within twofold
+Mandelate racemase       1.140    1.000   1.140  1.140   0.0086  within twofold
+Proline racemase         1.000    1.000   1.000  1.000   0.0000  within twofold
+B. anthracis RacE2       1.284    1.000   1.284  1.284   0.0314  within twofold
+B. anthracis RacE1       0.511    1.000   0.511  1.959   0.2346  within twofold
+L. fermenti GluR         0.799    1.000   0.799  1.251   0.0252  within twofold
+B. bifidum AspR          0.974    1.000   0.974  1.027   0.0004  within twofold
+P. aeruginosa DadX       1.157    1.000   1.157  1.157   0.0106  within twofold
+
+sigma_ln(thermo) PGI inter-source spread = 0.0772
+sigma_ln(thermo) fumarase inter-source spread = 0.0447
+
+PGI primary: ln x=0.1662, sigma_kin=0.1726, sigma_thermo=0.0772, sigma_delta=0.1891, z=0.879
+
+Fumarase kinetic Haldane vs thermodynamic K'=4.2 (Genda 2006):
+  Fumarase phosphate pH6   Kkin=  6.4 x= 1.524 fold= 1.52 C=  0.0900  within twofold
+  Fumarase phosphate pH7   Kkin=  6.1 x= 1.452 fold= 1.45 C=  0.0705  within twofold
+  Fumarase phosphate pH8   Kkin=  4.6 x= 1.095 fold= 1.10 C=  0.0041  within twofold
+  Fumarase MES pH6         Kkin= 16.0 x= 3.810 fold= 3.81 C=  1.0360  2-5-fold
+  Fumarase TES pH7         Kkin= 19.0 x= 4.524 fold= 4.52 C=  1.3724  2-5-fold
+  Fumarase Tris pH8        Kkin= 17.0 x= 4.048 fold= 4.05 C=  1.1473  2-5-fold
+
+Figures written to /Users/megansimons/Documents/Recognition_Physics/Cost Metric in Reversible Enzyme Kinetics/code/figures

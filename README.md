@@ -1,8 +1,8 @@
-# Reciprocal Haldane-consistency scoring
+# A Reciprocal Reporting Scale for Haldane Consistency in Reversible Enzyme Kinetics: A Curated Proof of Concept
 
 Reference code and supplemental data for the manuscript **"A Reciprocal
-Haldane-Consistency Score for Thermodynamic Audits of Reversible Enzyme
-Kinetics."**
+Reporting Scale for Haldane Consistency in Reversible Enzyme Kinetics:
+A Curated Proof of Concept."**
 
 Archived release: concept DOI
 [10.5281/zenodo.20790110](https://doi.org/10.5281/zenodo.20790110) (resolves to the latest
@@ -33,9 +33,9 @@ K'_eq,thermo = exp(-dG'/(R T))   or a measured K'        (Section 3.2)
 
 | File | Purpose |
 |------|---------|
-| `haldane_consistency.py` | Core library: the cost `J`, the Haldane relation, the thermodynamic estimator, uncertainty propagation, classification, baselines, and CSV I/O. **Standard library only.** |
+| `haldane_consistency.py` | Core library: the cost `J`, the Haldane relation, the thermodynamic estimator, uncertainty propagation, fold-band labeling, baselines, and CSV I/O. **Standard library only.** |
 | `curated_reactions.csv` | **The curated real-reaction dataset.** One row per kinetic--thermodynamic comparison, with the kinetic estimate `keq_kin`, the thermodynamic comparator `keq_thermo`, conditions, and primary-literature provenance. |
-| `curated_reactions_scored.csv` | Scored output from `score_curated.py`, including `x`, `C_haldane`, fold error, and consistency class. |
+| `curated_reactions_scored.csv` | Scored output from `score_curated.py`, including `x`, `C_haldane`, fold error, and the fixed fold-discrepancy band. |
 | `strenda_metadata.csv` | STRENDA-aligned conditions and directional kinetic terms for the records summarized in the manuscript's STRENDA tables. Missing fields are retained as `not reported`. |
 | `Supplementary_Table_S1_reaction_normalization.csv` | Explicit Supplementary Table S1 export: normalized reaction identities, reaction orientation, thermodynamic anchor/comparator, and Rhea/ChEBI audit status. |
 | `Supplementary_Table_S2_kinetic_metadata.csv` | Explicit Supplementary Table S2 export: STRENDA-style kinetic metadata for directly documented records. |
@@ -43,6 +43,9 @@ K'_eq,thermo = exp(-dG'/(R T))   or a measured K'        (Section 3.2)
 | `score_curated.py` | Scores `curated_reactions.csv`, prints the summary table, and writes a scored CSV. **Standard library only.** |
 | `equilibrator_estimates.py` | Recomputes the eQuilibrator (component-contribution) thermodynamic comparators used for the secondary score `C_Haldane^est`. Requires `equilibrator-api` (optional). |
 | `make_real_figures.py` | Generates the manuscript's real-data Figure 3 (consistency scatter) and Figure 4 (score distribution) into `figures/`, and prints the per-reaction scores and uncertainty analysis. Requires `matplotlib`. |
+| `score_curated_output.txt`, `make_real_figures_output.txt` | Captured stdout from the regenerated v1.3 scoring and figure-output commands. |
+| `EXPECTED_OUTPUT_HASHES.sha256` | SHA-256 manifest for regenerated outputs. |
+| `RELEASE_VERIFICATION.md` | v1.3 local verification record and post-upload DOI/tag checklist. |
 | `figures.py` | The data-free Figure 1 (cost shape) and schematic figure helpers. Requires `matplotlib`. |
 | `run_analysis.py` | Command-line driver for the four-constant input format: score a CSV, write an augmented CSV, print a summary, optionally make figures. |
 | `example_dataset.csv` | The synthetic worked example (records R1--R5 of the manuscript's worked illustrative example). **Illustrative only; not experimental data.** |
@@ -132,24 +135,24 @@ thermodynamic comparator -- either `keq_thermo` (a dimensionless `K'`) or
 | `kcat_f`, `kcat_r` | forward / reverse turnover (`1/s`); units cancel in the ratio |
 | `km_s`, `km_p` | Michaelis constants for substrate / product (e.g. `mM`); units cancel |
 | `keq_thermo` *or* `dg_thermo_kJ_per_mol` | thermodynamic comparator |
-| `sigma_ln_kcat_f`, `sigma_ln_km_s`, `sigma_ln_kcat_r`, `sigma_ln_km_p`, `sigma_ln_keq_thermo` | optional 1-sigma uncertainties in natural-log units; if **all** are present, the standardized score `C_std = cosh(z) - 1` is also reported |
+| `sigma_ln_kcat_f`, `sigma_ln_km_s`, `sigma_ln_kcat_r`, `sigma_ln_km_p`, `sigma_ln_keq_thermo` | optional 1-sigma uncertainties in natural-log units; if **all** are present, the standardized residual `z = delta / sigma_delta` is reported |
 
 ## Output columns
 
 The output CSV repeats the identity columns and adds `keq_kin`, `keq_thermo`,
-`ratio_x`, `ln_ratio`, `C_haldane`, `C_std`, `z`, `consistency_class`, and the
+`ratio_x`, `ln_ratio`, `C_haldane`, `z`, `consistency_class`, and the
 baseline measures `abs_log_error`, `squared_log_error`, `abs_ddg_kJ_per_mol`.
 
-## Consistency classes
+## Fold-discrepancy bands
 
-From the symmetric fold error `f = max(x, 1/x)` (the manuscript classification table):
+From the symmetric fold error `f = max(x, 1/x)` (the manuscript fold-band table):
 
-| Class | Condition | `C_Haldane` |
+| Fold band | Condition | `C_Haldane` |
 |-------|-----------|-------------|
-| consistent | `f <= 2` | `<= 0.25` |
-| mildly inconsistent | `2 < f <= 5` | `0.25 < C_Haldane <= 1.60` |
-| strongly inconsistent | `5 < f <= 10` | `1.60 < C_Haldane <= 4.05` |
-| severely inconsistent | `f > 10` | `> 4.05` |
+| within twofold | `f <= 2` | `<= 0.25` |
+| 2-5-fold | `2 < f <= 5` | `0.25 < C_Haldane <= 1.60` |
+| 5-10-fold | `5 < f <= 10` | `1.60 < C_Haldane <= 4.05` |
+| >10-fold | `f > 10` | `> 4.05` |
 
 ## Library usage
 
@@ -159,7 +162,7 @@ import haldane_consistency as hc
 # directly from kinetic and thermodynamic constants
 keq_kin = hc.keq_kinetic(kcat_f=200, km_s=0.5, kcat_r=100, km_p=0.4)   # 1.6
 score   = hc.haldane_score(keq_kin, keq_thermo=1.5)                    # ~0.002
-cls     = hc.classify(keq_kin / 1.5)                                   # "consistent"
+band    = hc.classify(keq_kin / 1.5)                                    # "within twofold"
 
 # or a full record (with optional uncertainties)
 rec = hc.EnzymeRecord(record_id="R1", kcat_f=200, km_s=0.5, kcat_r=100,

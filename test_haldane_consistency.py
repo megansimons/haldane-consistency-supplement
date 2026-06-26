@@ -84,19 +84,19 @@ def test_dg_keq_roundtrip():
         assert _close(hc.keq_thermo_from_dg(dg, hc.T_DEFAULT), keq, tol=1e-6 * keq + 1e-9)
 
 
-# --- classification (consistency classes) --------------------------------
+# --- fold-band reporting labels ------------------------------------------
 
 def test_classification_boundaries():
-    assert hc.classify(1.0) == "consistent"
-    assert hc.classify(2.0) == "consistent"
-    assert hc.classify(0.5) == "consistent"
-    assert hc.classify(3.0) == "mildly inconsistent"
-    assert hc.classify(1.0 / 3.0) == "mildly inconsistent"
-    assert hc.classify(5.0) == "mildly inconsistent"
-    assert hc.classify(8.0) == "strongly inconsistent"
-    assert hc.classify(10.0) == "strongly inconsistent"
-    assert hc.classify(25.0) == "severely inconsistent"
-    assert hc.classify(0.02) == "severely inconsistent"
+    assert hc.classify(1.0) == "within twofold"
+    assert hc.classify(2.0) == "within twofold"
+    assert hc.classify(0.5) == "within twofold"
+    assert hc.classify(3.0) == "2-5-fold"
+    assert hc.classify(1.0 / 3.0) == "2-5-fold"
+    assert hc.classify(5.0) == "2-5-fold"
+    assert hc.classify(8.0) == "5-10-fold"
+    assert hc.classify(10.0) == "5-10-fold"
+    assert hc.classify(25.0) == ">10-fold"
+    assert hc.classify(0.02) == ">10-fold"
 
 
 def test_fold_error_symmetry():
@@ -113,10 +113,9 @@ def test_sigma_propagation():
     assert _close(sd, math.hypot(0.6, 0.2))
 
 
-def test_standardized_score():
+def test_standardized_residual():
     z = hc.standardized_residual(1.2, 0.6)
     assert _close(z, 2.0)
-    assert _close(hc.standardized_score(z), math.cosh(2.0) - 1.0)
 
 
 # --- baselines (Section 4.7) ----------------------------------------------
@@ -135,11 +134,11 @@ def test_baselines():
 
 EXPECTED = {
     # record_id: (keq_kin, x, C_haldane, class)
-    "R1": (1.00, 1.0000, 0.00000, "consistent"),
-    "R2": (1.60, 1.0667, 0.00208, "consistent"),
-    "R3": (4.50, 3.0000, 0.66667, "mildly inconsistent"),
-    "R4": (25.0, 8.3333, 3.22667, "strongly inconsistent"),
-    "R5": (50.0, 25.000, 11.5200, "severely inconsistent"),
+    "R1": (1.00, 1.0000, 0.00000, "within twofold"),
+    "R2": (1.60, 1.0667, 0.00208, "within twofold"),
+    "R3": (4.50, 3.0000, 0.66667, "2-5-fold"),
+    "R4": (25.0, 8.3333, 3.22667, "5-10-fold"),
+    "R5": (50.0, 25.000, 11.5200, ">10-fold"),
 }
 
 
@@ -178,17 +177,17 @@ def test_score_record_requires_thermo():
         raise AssertionError("expected ValueError when no thermo comparator given")
 
 
-def test_standardized_score_only_with_full_uncertainty():
+def test_standardized_residual_only_with_full_uncertainty():
     full = hc.EnzymeRecord(record_id="u", kcat_f=200, km_s=0.5, kcat_r=100, km_p=0.4,
                            keq_thermo=1.5, sigma_ln_kcat_f=0.3, sigma_ln_km_s=0.3,
                            sigma_ln_kcat_r=0.3, sigma_ln_km_p=0.3, sigma_ln_keq_thermo=0.2)
     res_full = hc.score_record(full)
-    assert res_full.C_std is not None and res_full.z is not None
+    assert res_full.z is not None
 
     partial = hc.EnzymeRecord(record_id="p", kcat_f=200, km_s=0.5, kcat_r=100, km_p=0.4,
                               keq_thermo=1.5)
     res_partial = hc.score_record(partial)
-    assert res_partial.C_std is None and res_partial.z is None
+    assert res_partial.z is None
 
 
 # --- standalone runner -----------------------------------------------------

@@ -6,7 +6,7 @@ Produces:
   (data-free; reproduces the in-text pgfplots figure).
 * Figure 3 -- the main consistency scatter, ln K'_eq,kin vs ln K'_eq,thermo,
   with the line of identity and twofold/fivefold/tenfold agreement bands,
-  colored by consistency class.
+  colored by fold-discrepancy band.
 * Figure 4 -- the distribution of C_Haldane across a dataset, optionally
   beside |ln x|.
 
@@ -31,12 +31,12 @@ from haldane_consistency import (  # noqa: E402
     reciprocal_cost,
 )
 
-# Consistent palette for the four consistency classes.
+# Consistent palette for the fixed fold-discrepancy bands.
 _CLASS_COLORS = {
-    "consistent": "#2c7bb6",
-    "mildly inconsistent": "#abd9e9",
-    "strongly inconsistent": "#fdae61",
-    "severely inconsistent": "#d7191c",
+    "within twofold": "#2c7bb6",
+    "2-5-fold": "#abd9e9",
+    "5-10-fold": "#fdae61",
+    ">10-fold": "#d7191c",
 }
 
 _AXIS_BLUE = "#1f5a9c"

@@ -1,0 +1,14 @@
+# SHA-256 checksums for regenerated v1.3 outputs.
+#
+# Regenerate from this directory with:
+#   python score_curated.py --output curated_reactions_scored.csv > score_curated_output.txt
+#   python make_real_figures.py > make_real_figures_output.txt
+#
+# Verify on macOS/Linux with:
+#   shasum -a 256 -c EXPECTED_OUTPUT_HASHES.sha256
+3a50345ffad224da0692d907750d557cb3878cd2d2139f7b07d2e4fbbbb4e5eb  curated_reactions_scored.csv
+d8d668fbafaeedb063fa5aaa55441302deadad129d917b5d2d9c67e194d27c8d  score_curated_output.txt
+0264b2ba0f31c71a3ef51f34c95684f3d6fb8546d846d6f74faf9993a0d4632d  make_real_figures_output.txt
+534804048c86a0a1586d5f8e3061e70f0babfb90297a979d26da22bcc43fe045  equilibrator_estimates_output.txt
+3f8db4c9a256635d895f157796d28d216d6e6167a09ed215f1e8621f79cb643d  figures/fig_consistency.pdf
+e32bff7d78a0c4379867d01b3ad867aea182883ed94d60391aa56cd79e3cbc20  figures/fig_distribution.pdf
