@@ -2,8 +2,8 @@
 
 Reference implementation of the scoring described in
 
-    "A Reciprocal Reporting Scale for Haldane Consistency in Reversible
-     Enzyme Kinetics: A Curated Proof of Concept."
+    "Haldane Consistency as a Reciprocal Reporting Scale for Reversible
+     Enzyme Kinetics: A Curated Benchmark."
 
 The central quantity is the reciprocal recognition cost
 
@@ -43,6 +43,8 @@ __all__ = [
     "fold_error",
     "classify",
     "sigma_ln_keq_kin",
+    "sigma_ln_keq_kin_ordered_bibi",
+    "correlation_bracket",
     "sigma_delta",
     "standardized_residual",
     "baseline_scores",
@@ -196,6 +198,58 @@ def sigma_ln_keq_kin(
         + sigma_ln_kcat_r ** 2
         + sigma_ln_km_s ** 2
     )
+
+
+def sigma_ln_keq_kin_ordered_bibi(
+    sigma_ln_V1: float,
+    sigma_ln_V2: float,
+    sigma_ln_kiq: float,
+    sigma_ln_kp: float,
+    sigma_ln_kia: float,
+    sigma_ln_kb: float,
+) -> float:
+    """Standard deviation of ``ln K'_eq,kin`` for an ordered bi--bi Haldane.
+
+    The mechanism-specific Haldane relation is
+    ``K'_eq,kin = (V1/V2) (K_iq K_p) / (K_ia K_b)`` (Section 4.8), so
+
+    ``ln K'_eq,kin = ln V1 - ln V2 + ln K_iq + ln K_p - ln K_ia - ln K_b``,
+
+    a signed sum of six log-constants. Under independent errors the variance is
+    the sum of the six term variances; the +/- signs do not affect it. This is
+    the bi--bi analogue of :func:`sigma_ln_keq_kin`.
+    """
+    return math.sqrt(
+        sigma_ln_V1 ** 2
+        + sigma_ln_V2 ** 2
+        + sigma_ln_kiq ** 2
+        + sigma_ln_kp ** 2
+        + sigma_ln_kia ** 2
+        + sigma_ln_kb ** 2
+    )
+
+
+def correlation_bracket(term_sigmas: Iterable[float]) -> tuple:
+    """Bracket ``sigma(ln K'_eq,kin)`` over the unknown joint fit covariance.
+
+    For ``ln K'_eq,kin = sum_i s_i ln X_i`` with signs ``s_i in {+1, -1}`` the
+    variance is ``sum_i sigma_i^2 + 2 sum_{i<j} s_i s_j rho_ij sigma_i sigma_j``.
+    Over all admissible correlation matrices the standard deviation ranges from
+    a lower bound governed by maximal cancellation (>= 0) up to the
+    fully-reinforcing upper bound ``sum_i sigma_i``; the independent-error value
+    ``sqrt(sum_i sigma_i^2)`` lies in between.
+
+    Returns ``(sigma_independent, sigma_max_reinforcing)``. When the joint
+    covariance is unpublished (the recurring bi--bi case), this brackets the
+    standardized residual: a larger ``sigma`` lowers ``|z|``, so the
+    independent-error value is the conservative (largest ``|z|``) finite point of
+    the bracket and the reported ``z`` is a sensitivity bound, not a calibrated
+    test statistic.
+    """
+    sigmas = list(term_sigmas)
+    sigma_independent = math.sqrt(sum(s ** 2 for s in sigmas))
+    sigma_max_reinforcing = sum(sigmas)
+    return sigma_independent, sigma_max_reinforcing
 
 
 def sigma_delta(sigma_ln_kin: float, sigma_ln_thermo: float) -> float:

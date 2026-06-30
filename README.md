@@ -1,12 +1,13 @@
-# A Reciprocal Reporting Scale for Haldane Consistency in Reversible Enzyme Kinetics: A Curated Proof of Concept
+# Haldane Consistency as a Reciprocal Reporting Scale for Reversible Enzyme Kinetics: A Curated Benchmark
 
-Reference code and supplemental data for the manuscript **"A Reciprocal
-Reporting Scale for Haldane Consistency in Reversible Enzyme Kinetics:
-A Curated Proof of Concept."**
+Reference code and supplemental data for the manuscript **"Haldane Consistency
+as a Reciprocal Reporting Scale for Reversible Enzyme Kinetics: A Curated
+Benchmark."**
 
-Archived release: concept DOI
-[10.5281/zenodo.20790110](https://doi.org/10.5281/zenodo.20790110) (resolves to the latest
-archived version).
+Archived release: the concept DOI
+[10.5281/zenodo.20790110](https://doi.org/10.5281/zenodo.20790110) always resolves to the latest
+archived version (currently `v1.4`); each tagged release also receives its own immutable version
+DOI on Zenodo.
 The live repository is
 [megansimons/haldane-consistency-supplement](https://github.com/megansimons/haldane-consistency-supplement).
 
@@ -43,9 +44,9 @@ K'_eq,thermo = exp(-dG'/(R T))   or a measured K'        (Section 3.2)
 | `score_curated.py` | Scores `curated_reactions.csv`, prints the summary table, and writes a scored CSV. **Standard library only.** |
 | `equilibrator_estimates.py` | Recomputes the eQuilibrator (component-contribution) thermodynamic comparators used for the secondary score `C_Haldane^est`. Requires `equilibrator-api` (optional). |
 | `make_real_figures.py` | Generates the manuscript's real-data Figure 3 (consistency scatter) and Figure 4 (score distribution) into `figures/`, and prints the per-reaction scores and uncertainty analysis. Requires `matplotlib`. |
-| `score_curated_output.txt`, `make_real_figures_output.txt` | Captured stdout from the regenerated v1.3 scoring and figure-output commands. |
+| `score_curated_output.txt`, `make_real_figures_output.txt` | Captured stdout from the regenerated scoring and figure-output commands. |
 | `EXPECTED_OUTPUT_HASHES.sha256` | SHA-256 manifest for regenerated outputs. |
-| `RELEASE_VERIFICATION.md` | v1.3 local verification record and post-upload DOI/tag checklist. |
+| `RELEASE_VERIFICATION.md` | v1.4 local verification record and post-upload DOI/tag checklist. |
 | `figures.py` | The data-free Figure 1 (cost shape) and schematic figure helpers. Requires `matplotlib`. |
 | `run_analysis.py` | Command-line driver for the four-constant input format: score a CSV, write an augmented CSV, print a summary, optionally make figures. |
 | `example_dataset.csv` | The synthetic worked example (records R1--R5 of the manuscript's worked illustrative example). **Illustrative only; not experimental data.** |
