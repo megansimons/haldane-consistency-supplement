@@ -43,8 +43,8 @@ byte-reproducible only when `SOURCE_DATE_EPOCH` is pinned as shown above.
 
 ## Post-Upload Checks
 
-- Create GitHub tag/release `v1.4` from the uploaded synchronized files.
-- Archive the same `v1.4` release on Zenodo (new version DOI under the same
-  concept DOI 10.5281/zenodo.20790110).
-- Add the minted v1.4 version DOI to `CITATION.cff` and the manuscript.
-- Confirm the concept DOI still resolves to the latest release.
+- GitHub tag/release `v1.4` published:
+  https://github.com/megansimons/haldane-consistency-supplement/tree/v1.4
+- Archived on Zenodo under version DOI 10.5281/zenodo.21084024; the concept DOI
+  10.5281/zenodo.20790110 resolves to the latest release.
+- The v1.4 version DOI is recorded in `CITATION.cff` and the manuscript.

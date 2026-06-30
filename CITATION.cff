@@ -24,16 +24,14 @@ keywords:
   - operating characteristics
   - data curation
 repository-code: "https://github.com/megansimons/haldane-consistency-supplement"
-# Concept DOI: always resolves to the latest version (the v1.4 deposit once published).
-doi: "10.5281/zenodo.20790110"
+doi: "10.5281/zenodo.21084024"
 identifiers:
+  - type: doi
+    value: "10.5281/zenodo.21084024"
+    description: "Version DOI for the v1.4 archived release"
   - type: doi
     value: "10.5281/zenodo.20790110"
     description: "Concept DOI (resolves to the latest version)"
-  # After the v1.4 GitHub release is archived on Zenodo, add the minted version DOI:
-  # - type: doi
-  #   value: "10.5281/zenodo.XXXXXXXX"
-  #   description: "Version DOI for the v1.4 archived release"
 preferred-citation:
   type: article
   title: "Haldane Consistency as a Reciprocal Reporting Scale for Reversible Enzyme Kinetics: A Curated Benchmark"

@@ -4,10 +4,11 @@ Reference code and supplemental data for the manuscript **"Haldane Consistency
 as a Reciprocal Reporting Scale for Reversible Enzyme Kinetics: A Curated
 Benchmark."**
 
-Archived release: the concept DOI
+Archived release: version DOI
+[10.5281/zenodo.21084024](https://doi.org/10.5281/zenodo.21084024) (the immutable `v1.4`
+snapshot); the concept DOI
 [10.5281/zenodo.20790110](https://doi.org/10.5281/zenodo.20790110) always resolves to the latest
-archived version (currently `v1.4`); each tagged release also receives its own immutable version
-DOI on Zenodo.
+archived version.
 The live repository is
 [megansimons/haldane-consistency-supplement](https://github.com/megansimons/haldane-consistency-supplement).
 
